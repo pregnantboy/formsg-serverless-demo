@@ -1,0 +1,28 @@
+frameworkVersion: '3'
+
+service: formsg-serverless-demo # UPDATE
+useDotenv: true # prevents .env from being packaged
+
+provider:
+  name: aws
+  region: ap-southeast-1
+  runtime: nodejs14.x
+  architecture: arm64
+  profile: your-aws-profile # UPDATE
+
+package:
+  patterns:
+    - '!.*' # exclude hidden files
+    - '!package-lock.json'
+  excludeDevDependencies: true
+
+functions:
+  some-function-name: # UPDATE
+    name: some-function-name # UPDATE
+    handler: main.handler
+    description: Does something on form submission # UPDATE
+    timeout: 5
+    events:
+      - httpApi:
+          path: /callback # UPDATE
+          method: post
